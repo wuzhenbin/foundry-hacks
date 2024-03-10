@@ -1,5 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.17;
+
+/* 
+goal - take the bank's money
+*/
 
 contract ReentrancyBank {
     // 余额mapping
