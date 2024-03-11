@@ -13,23 +13,23 @@ func10487987874260605968(bytes,bytes,uint64)
 zttmoca(bytes,bytes,uint64)
 */
 
-contract CounterTest is Test {
+contract SelectorClashTest is Test {
     SelectorClash public selectorClash;
-
-    address public constant USER = address(1);
 
     function setUp() public {
         selectorClash = new SelectorClash();
     }
 
     function testPutCurEpochNotOwner() public {
-        vm.prank(USER);
         vm.expectRevert(bytes("Not Owner"));
         selectorClash.putCurEpochConPubKeyBytes("0x");
     }
 
     function testPutCurEpochSuccess() public {
-        vm.prank(USER);
+        bool solved = selectorClash.solved();
+        assertEq(solved, false);
         selectorClash.executeCrossChainTx("zttmoca", "0x", "0x", 0);
+        solved = selectorClash.solved();
+        assertEq(solved, true);
     }
 }

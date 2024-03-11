@@ -4,7 +4,7 @@ pragma solidity ^0.8.17;
 import {Test, console} from "forge-std/Test.sol";
 import {ReentrancyBank, ReentrancyAttack, ReentrancyGoodBank, ReentrancyProtectedBank} from "../src/Reentrancy.sol";
 
-contract CounterTest is Test {
+contract ReentrancyTest is Test {
     ReentrancyBank public bank;
     ReentrancyAttack public attack;
     ReentrancyGoodBank public goodCEIBank;
