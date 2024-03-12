@@ -1,6 +1,7 @@
 forge test --match-path ./test/Reentrancy.t.sol
 forge test --match-path ./test/SelectorClash.t.sol
 forge test --match-path ./test/Overflow.t.sol
+forge test --match-path ./test/SigReplay.t.sol
 
 ## Foundry
 
