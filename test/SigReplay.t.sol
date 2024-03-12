@@ -5,7 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {SigReplay} from "../src/SigReplay.sol";
 
 /* 
-cast wallet sign "0x7a64aaa9fcb1565d5c8b5e89df9565f0188ca30a0ac874a95ac3079cdfe7664f" --private-key 0000000000000000000000000000000000000000000000000000000000000001
+cast wallet sign "" --private-key 0000000000000000000000000000000000000000000000000000000000000001
 */
 
 contract SigReplayTest is Test {
@@ -21,17 +21,10 @@ contract SigReplayTest is Test {
         sigReplay = new SigReplay();
     }
 
-    function getMessageHash(address to, uint256 amount) public pure returns (bytes32) {
-        return keccak256(abi.encodePacked(to, amount));
-    }
-
-    function toEthSignedMessageHash(bytes32 hash) public pure returns (bytes32) {
-        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
-    }
-
     function testMint() public {
-        bytes32 _msgHash = toEthSignedMessageHash(getMessageHash(alice, 1000));
-        (uint8 v, bytes32 r, bytes32 s) = vm.sign(alicePk, _msgHash);
+        bytes32 message = keccak256(abi.encodePacked(alice, uint256(1000)));
+        bytes32 msgHash = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", message));
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(alicePk, msgHash);
         bytes memory signature = abi.encodePacked(r, s, v);
 
         sigReplay.badMint(alice, 1000, signature);

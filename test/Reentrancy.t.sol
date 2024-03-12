@@ -10,22 +10,22 @@ contract ReentrancyTest is Test {
     ReentrancyGoodBank public goodCEIBank;
     ReentrancyProtectedBank public goodProBank;
 
-    address public constant USER = address(1);
-    address public constant ATTACKER = address(2);
+    address public constant alice = address(1);
+    address public constant hacker = address(2);
 
     function setUp() public {
         bank = new ReentrancyBank();
         goodCEIBank = new ReentrancyGoodBank();
         goodProBank = new ReentrancyProtectedBank();
 
-        vm.deal(USER, 1000 ether);
-        vm.deal(ATTACKER, 1 ether);
+        vm.deal(alice, 1000 ether);
+        vm.deal(hacker, 1 ether);
     }
 
     function testAttackSuccessful() public {
         attack = new ReentrancyAttack(address(bank));
 
-        vm.prank(USER);
+        vm.prank(alice);
         bank.deposit{value: 20 ether}();
 
         uint256 bankBalance = address(bank).balance;
@@ -34,7 +34,7 @@ contract ReentrancyTest is Test {
         assertEq(bankBalance, 20 ether);
         assertEq(attackBalance, 0);
 
-        vm.prank(ATTACKER);
+        vm.prank(hacker);
         attack.attack{value: 1 ether}();
 
         bankBalance = address(bank).balance;
@@ -47,22 +47,22 @@ contract ReentrancyTest is Test {
     function testAttackFailWithCEI() public {
         attack = new ReentrancyAttack(address(goodCEIBank));
 
-        vm.prank(USER);
+        vm.prank(alice);
         goodCEIBank.deposit{value: 20 ether}();
 
         vm.expectRevert(bytes("Failed to send Ether"));
-        vm.prank(ATTACKER);
+        vm.prank(hacker);
         attack.attack{value: 1 ether}();
     }
 
     function testAttackFailWithProtect() public {
         attack = new ReentrancyAttack(address(goodProBank));
 
-        vm.prank(USER);
+        vm.prank(alice);
         goodProBank.deposit{value: 20 ether}();
 
         vm.expectRevert(bytes("Failed to send Ether"));
-        vm.prank(ATTACKER);
+        vm.prank(hacker);
         attack.attack{value: 1 ether}();
     }
 }

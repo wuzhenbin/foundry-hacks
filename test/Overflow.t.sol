@@ -7,8 +7,7 @@ import {OverflowToken} from "../src/Overflow.sol";
 contract OverflowTest is Test {
     OverflowToken public token;
 
-    address public constant USER1 = address(1);
-    address public constant USER2 = address(2);
+    address public constant alice = address(1);
 
     function setUp() public {
         token = new OverflowToken(100);
@@ -16,13 +15,13 @@ contract OverflowTest is Test {
 
     function testOverflow() public {
         uint256 thisBalance = token.balanceOf(address(this));
-        uint256 userBalance = token.balanceOf(USER1);
+        uint256 userBalance = token.balanceOf(alice);
         assertEq(thisBalance, 100);
         assertEq(userBalance, 0);
 
-        token.transfer(USER1, 1000);
+        token.transfer(alice, 1000);
         thisBalance = token.balanceOf(address(this));
-        userBalance = token.balanceOf(USER1);
+        userBalance = token.balanceOf(alice);
         assertEq(thisBalance, type(uint256).max - 900 + 1);
         assertEq(userBalance, 1000);
     }
