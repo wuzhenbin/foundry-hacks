@@ -4,6 +4,7 @@ forge test --match-path ./test/Overflow.t.sol
 forge test --match-path ./test/SigReplay.t.sol
 forge test --match-path ./test/Randomness.t.sol
 forge test --match-path ./test/Dos.t.sol
+forge test --match-path ./test/ContractCheck.t.sol
 
 ## Foundry
 
