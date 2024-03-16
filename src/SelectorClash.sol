@@ -9,7 +9,7 @@ contract SelectorClash {
     // 攻击是否成功
     bool public solved;
 
-    function putCurEpochConPubKeyBytes(bytes memory _bytes) public {
+    function putCurEpochConPubKeyBytes(bytes memory /* _bytes */ ) public {
         require(msg.sender == address(this), "Not Owner");
         solved = true;
     }

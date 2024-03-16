@@ -1,10 +1,14 @@
+```shell
 forge test --match-path ./test/Reentrancy.t.sol
 forge test --match-path ./test/SelectorClash.t.sol
 forge test --match-path ./test/Overflow.t.sol
 forge test --match-path ./test/SigReplay.t.sol
 forge test --match-path ./test/Randomness.t.sol
 forge test --match-path ./test/Dos.t.sol
+forge test --match-path ./test/Dos.t.sol --mt "testDosGame"
 forge test --match-path ./test/ContractCheck.t.sol
+forge test --match-path ./test/txOrigin.t.sol
+```
 
 ## Foundry
 
