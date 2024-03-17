@@ -9,6 +9,7 @@ forge test --match-path ./test/Dos.t.sol --mt "testDosGame"
 forge test --match-path ./test/ContractCheck.t.sol
 forge test --match-path ./test/txOrigin.t.sol
 forge test --match-path ./test/Oracle.t.sol -vvv
+forge test --match-path ./test/SelfDestruct.t.sol -vvv
 ```
 
 ## Foundry
